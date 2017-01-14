@@ -28,6 +28,13 @@ function updateUI() {
   MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 }
 
+function hideSolution() {
+  $('#question-solution-tab').removeClass('uk-open')
+  $('#question-solution').attr('aria-hidden', 'true').attr('hidden', 'hidden')
+  $('#question-steps-tab').removeClass('uk-open')
+  $('#question-steps').attr('aria-hidden', 'true').attr('hidden', 'hidden')
+}
+
 // ---
 
 $(document).ready(function() {
@@ -35,12 +42,19 @@ $(document).ready(function() {
 })
 
 $('#prev-question-top, #prev-question-bot').click(function () {
+  if (store.displayedQuestion <= 0) return;
   store.displayedQuestion--
+  hideSolution()
   updateUI()
 })
 
 $('#next-question-top, #next-question-bot').click(function () {
+  if (store.displayedQuestion >= store.totalQuestions - 1) return;
   store.displayedQuestion++
+  hideSolution()
+  updateUI()
+})
+
 $('#rand-question').click(function () {
   store.displayedQuestion = Math.floor(Math.random() * store.totalQuestions)
   hideSolution()
