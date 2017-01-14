@@ -37,9 +37,9 @@ function hideSolution() {
 
 // ---
 
-$(document).ready(function() {
+$(document).ready(setTimeout(function() {
   updateUI()
-})
+}, 500))
 
 $('#prev-question-top, #prev-question-bot').click(function () {
   if (store.displayedQuestion <= 0) return;
