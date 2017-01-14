@@ -36,6 +36,8 @@ function updateUI() {
   // Update source section or hide it
   if ('source' in question) {
     $('#question-source a').text(question.source[0]).attr('href', question.source[1])
+  } else {
+    $('#question-source a').text('')
   }
 
   // Update progress bars
