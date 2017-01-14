@@ -1,5 +1,5 @@
 store.contributors = [
-  "Marián Hlaváč (hlavam30) <marian.hlavac@fit.cvut.cz>",
+  ["Marián Hlaváč", "marian.hlavac@fit.cvut.cz"],
 ]
 
 store.lastUpdate = "2017-01-14"

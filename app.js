@@ -15,7 +15,7 @@ function updateUI() {
 
   if ('tags' in question) {
     question.tags.map(function(tag) {
-      $('#question-tags').append(`<span class="uk-badge">${tag}</span> `)
+      $('#question-tags').append(`<span class='uk-badge'>${tag}</span> `)
     })
   }
 
@@ -30,7 +30,7 @@ function updateUI() {
     $('#question-source a').text(question.source[0]).attr('href', question.source[1])
   }
 
-  MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+  MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
 }
 
 function hideSolution() {
@@ -44,6 +44,10 @@ function hideSolution() {
 
 $(document).ready(setTimeout(function() {
   updateUI()
+
+  store.contributors.map(function(contributor) {
+    $('#contributors').append(`<a href="mailto:${contributor[1]}">${contributor[0]}</a> `)
+  })
 }, 500))
 
 $('#prev-question-top, #prev-question-bot').click(function () {
