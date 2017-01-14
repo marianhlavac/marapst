@@ -27,6 +27,10 @@
     <div uk-grid>
       <div class="uk-width-expand@m">
         <h2>
+        <div class="uk-margin-bottom">
+          <button class="uk-button uk-button-default" id="prev-question-top">Předchozí</button>
+          <button class="uk-button uk-button-default uk-align-right" id="next-question-top">Další</button>
+        </div>
           Příklad #<span id="question-id">?</span>
           <span id="question-tags"></span>
         </h2>
@@ -46,8 +50,8 @@
             <label><input class="uk-checkbox" type="checkbox"> Chápu, vím</label>
         </div>
         <div>
-          <button class="uk-button uk-button-default">Předchozí</button>
-          <button class="uk-button uk-button-default uk-align-right">Další</button>
+          <button class="uk-button uk-button-default" id="prev-question-bot">Předchozí</button>
+          <button class="uk-button uk-button-default uk-align-right" id="next-question-bot">Další</button>
         </div>
       </div>
       <div class="uk-width-1-3@m">
