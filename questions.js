@@ -9,8 +9,8 @@ store.questions = [
   {
     question: "Zadání příkladu, matika jde mezi $$. <strong>HTML funguje taky případně.</strong>",
     solution: "Řešení příkladu",
+    steps: "Postup příkladu",
     tags: [ "tagy", "momentová metoda", "integrace" ],
-    comment: "Nepovinný komentář, pokud není, tak řádek sem vůbec nedávej",
   },
   */
   {
@@ -22,8 +22,8 @@ store.questions = [
     solution: `a) $a=\\frac{1}{6}$
               b) $EX=\\frac{1}{2}$
               c) $P(X<\\frac{4}{3})=\\frac{8}{9}$`,
+    steps: `To tu popisu pak`,
     tags: [ "spojité", "integrace" ],
-    comment: "this is comment",
   },
   {
     question: "asdf",
