@@ -40,9 +40,6 @@ function updateUI() {
     $('#question-source a').text('')
   }
 
-  // Update progress bars
-  updateProgressBars()
-
   // Determine and update question status
   if (store.userData.knownQuestions.indexOf(store.displayedQuestion.toString()) != -1) {
     $('#question-status').html('<span class="uk-label uk-label-success">umíš</span>')
@@ -57,6 +54,9 @@ function updateUI() {
 
   // Set this question as displayed
   setDisplayedQuestion(store.displayedQuestion)
+
+  // Update progress bars
+  updateProgressBars()
 
   // Queue MathJax re-rendering
   MathJax.Hub.Queue(['Typeset', MathJax.Hub])
