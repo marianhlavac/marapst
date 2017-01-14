@@ -14,6 +14,13 @@ function updateUI() {
     $('#question-tags').append(`<span class="uk-badge">${tag}</span> `)
   })
 
+  if ('steps' in question) {
+    $('#question-steps').html(question.steps.replace(/\n/g,'<br>'))
+    $('#question-steps-tab').show()
+  } else {
+    $('#question-steps-tab').hide()
+  }
+
   MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 }
 
