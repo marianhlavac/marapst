@@ -7,6 +7,7 @@ function updateUI() {
 
   $('#question-id').html(store.displayedQuestion + 1)
   $('#question-page').html(store.displayedQuestion + 1 + '/' + store.totalQuestions)
+
   $('#question-content').html(question.question.replace(/\n/g,'<br>'))
   $('#question-solution').html(question.solution.replace(/\n/g,'<br>'))
 
@@ -23,6 +24,10 @@ function updateUI() {
     $('#question-steps-tab').show()
   } else {
     $('#question-steps-tab').hide()
+  }
+
+  if ('source' in question) {
+    $('#question-source a').text(question.source[0]).attr('href', question.source[1])
   }
 
   MathJax.Hub.Queue(["Typeset", MathJax.Hub]);

@@ -9,8 +9,9 @@ store.questions = [
   {
     question: "Zadání příkladu, matika jde mezi $$. <strong>HTML funguje taky případně.</strong>",
     solution: "Řešení příkladu",
-    steps: "Postup příkladu",
+    steps: "Postup příkladu", (nepovinné)
     tags: [ "tagy", "momentová metoda", "integrace" ],
+    source: ["Zdroj odkud to je (ideálně dodržujte tvar "fitwiki xx.xx.xxxx")", "a url"], (nepovinné)
   },
   */
   {
@@ -23,12 +24,14 @@ store.questions = [
               b) $EX=\\frac{1}{2}$
               c) $P(X<\\frac{4}{3})=\\frac{8}{9}$`,
     steps: `To tu popisu pak`,
+    source: ["fitwiki nekde", "http://top.kek"],
     tags: [ "spojité", "integrace" ],
   },
   {
     question: "asdf",
     solution: "Nice.",
     tags: [ "momentova metoda" ],
+    source: ["fitwiki nekde", "http://top.kek"],
   },
 ]
 
