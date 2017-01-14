@@ -1,9 +1,13 @@
+// (1) Se sem nejprve přidej asi
 store.contributors = [
   ["Marián Hlaváč", "marian.hlavac@fit.cvut.cz"],
 ]
 
+// (2) Asi bys měl updatnout tohle, ale je mi to jedno
 store.lastUpdate = "2017-01-14"
 
+// (3) Nasyp sem co nejvíc otázek co máš, podle tvaru co je naznačenej níž,
+//     úplně dolů, neprohazuj pořadí, nedělej chyby, před PR ověř správnost syntax
 store.questions = [
   /*
   {
@@ -34,5 +38,8 @@ store.questions = [
     source: ["fitwiki nekde", "http://top.kek"],
   },
 ]
+
+// (4) Hm tak dík, na zbytek už asi nešahej, pokud nevíš, co děláš.
+
 
 store.totalQuestions = store.questions.length
