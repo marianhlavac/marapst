@@ -33,7 +33,7 @@
         <span id="question-tags"></span>
         <h2 class="uk-margin-remove">
           Příklad #<span id="question-id">?</span>
-          <span class="uk-label uk-label-success">umíš</span>
+          <span id="question-status"></span>
         </h2>
         <div class="uk-text-meta">
           <span id="question-page">?/?</span>&nbsp;|&nbsp;
@@ -61,7 +61,7 @@
           </li>
         </ul>
         <div class="uk-text-center">
-            <label><input class="uk-checkbox" type="checkbox"> Tohle umím</label>
+            <label id="known-toggle"><input class="uk-checkbox" type="checkbox"> Tohle umím</label>
         </div>
         <div>
           <button class="uk-button uk-button-default" id="prev-question-bot">Předchozí</button>
@@ -71,12 +71,12 @@
       <div class="uk-width-1-3@m">
         <h3 class="uk-heading-divider">Přehled</h3>
         <p>
-          <progress class="uk-progress" value="2" max="19"></progress>
-          Zobrazeno <strong>2</strong> z 19 příkladů.
+          <progress class="uk-progress" id="shown-progress" value="0" max="0"></progress>
+          Zobrazeno <strong id="shown-questions">0</strong> z <span class="total-questions">?</span> příkladů.
         </p>
         <p>
-          <progress class="uk-progress" value="0" max="19"></progress>
-          Znalost <strong>0</strong> z 19 příkladů.
+          <progress class="uk-progress" id="know-progress" value="0" max="0"></progress>
+          Umíš <strong id="know-questions">0</strong> z <span class="total-questions">?</span> příkladů.
         </p>
         <h3 class="uk-heading-divider">Výběr</h3>
         <button class="uk-button uk-width-1-1 uk-button-default uk-margin-small-bottom" id="rand-question">
@@ -89,6 +89,9 @@
     </div>
     <hr>
     <a href="#" uk-totop uk-scroll class="uk-align-right"></a>
+    <button class="uk-button uk-button-default uk-button-small uk-align-right" id="reset">
+      Reset user data
+    </button>
     <div class="uk-text-small">Marián Hlaváč, 2017</div>
     <div class="uk-text-small"><a href="https://github.com/mmajko/marapst">github</a>, question contributors: <span id="contributors"></span></div>
   </div>
