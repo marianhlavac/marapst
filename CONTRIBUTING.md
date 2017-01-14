@@ -16,4 +16,4 @@ A few tips how to quickly convert existing fit-wiki questions to this app format
 
  - Convert all non-latex math symbols/text to latex, pls!
  - Replace all `<math>` and `</math>` with `$`
- - Everything starting with `\` replace with `\\` (eg. `\lorem` -> `\\lorem`) because of the JS escaping
+ - Every `\` replace with `\\` (eg. `\lorem` -> `\\lorem`) because of the JS escaping
