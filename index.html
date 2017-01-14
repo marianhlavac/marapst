@@ -26,14 +26,18 @@
   <div class="uk-container uk-container-small uk-margin">
     <div uk-grid>
       <div class="uk-width-expand@m">
-        <h2>
         <div class="uk-margin-bottom">
           <button class="uk-button uk-button-default" id="prev-question-top">Předchozí</button>
           <button class="uk-button uk-button-default uk-align-right" id="next-question-top">Další</button>
         </div>
+        <span id="question-tags"></span>
+        <h2 class="uk-margin-remove">
           Příklad #<span id="question-id">?</span>
-          <span id="question-tags"></span>
+          <span class="uk-label uk-label-success">umíš</span>
         </h2>
+        <div class="uk-text-meta">
+          <a href="https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2015-01-08">fitwiki 8. 1. 2015</a>
+        </div>
         <ul uk-accordion="multiple: true">
           <li class="uk-open">
             <h3 class="uk-accordion-title">Zadání</h3>
@@ -47,7 +51,7 @@
           </li>
         </ul>
         <div class="uk-text-center">
-            <label><input class="uk-checkbox" type="checkbox"> Chápu, vím</label>
+            <label><input class="uk-checkbox" type="checkbox"> Tohle umím</label>
         </div>
         <div>
           <button class="uk-button uk-button-default" id="prev-question-bot">Předchozí</button>
@@ -76,5 +80,11 @@
   </div>
   <script src="app.js"></script>
   <script src="questions.js"></script>
+  <style type="text/css">
+    #question-tags span {
+      background: #eee;
+      color: #666;
+    }
+  </style>
 </body>
 </html>
