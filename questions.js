@@ -14,12 +14,14 @@ store.questions = [
   },
   */
   {
-    question: `Sportovní klub přihlásil 20 běžců na maraton. Jsou mezi nimi 4
-    výborní, 10 dobrých a 6 průměrných. Pravděpodobnost, že běžec splní časový
-    limit pro kvalifikaci na olympiádu, je pro výborné běžce 0.9, pro dobré 0.7
-    a pro průměrné 0.5. Jaká je pravděpodobnost, že náhodně vybraný běžec tohoto
-     sportovního klubu splní kvalifikační limit?`,
-    solution: `Nice.`,
+    question: `Pro nějaké $a>0$ máme náhodnou veličinu X s hustotou:
+              $$f(x)=(x-1)(x-2), 0\\leq x\\leq 1$$ $$f(x)=a, 1\\leq x\\leq 2$$ $$f(x)=0, jinak$$
+              a) Pro jaké a je $f$ hustotou náhodné veličiny X?
+              b) Najděte $EX$
+              c) Spočtěte $P(X<\\frac{4}{3})$`,
+    solution: `a) $a=\\frac{1}{6}$
+              b) $EX=\\frac{1}{2}$
+              c) $P(X<\\frac{4}{3})=\\frac{8}{9}$`,
     tags: [ "momentova metoda" ],
     comment: "this is comment",
   },
