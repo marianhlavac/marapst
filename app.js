@@ -30,5 +30,8 @@ $('#prev-question-top, #prev-question-bot').click(function () {
 
 $('#next-question-top, #next-question-bot').click(function () {
   store.displayedQuestion++
+$('#rand-question').click(function () {
+  store.displayedQuestion = Math.floor(Math.random() * store.totalQuestions)
+  hideSolution()
   updateUI()
 })
