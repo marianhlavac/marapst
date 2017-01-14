@@ -9,3 +9,11 @@
 5. Commit and push to your repository.
 6. Go to this repository and create a pull request.
 7. Good job, thanks.
+
+### Converting fit-wiki questions
+
+A few tips how to quickly convert existing fit-wiki questions to this app format:
+
+ - Convert all non-latex math symbols/text to latex, pls!
+ - Replace all `<math>` and `</math>` with `$`
+ - Everything starting with `\` replace with `\\` (eg. `\lorem` -> `\\lorem`) because of the JS escaping
