@@ -101,7 +101,7 @@ store.questions = [
     b) $\\frac{n - 3200}{\\sqrt{16000}} = 2.33$ ( 2.33 je z tabulky normalniho rozdeleni pro 0.99)
     `,
     source: ["fitwiki 4. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-04#skupina_a3"],
-    tags: [ "momentová metoda" ],
+    tags: [ "druhy rozdělení", "CLV" ],
   },
 
   {
@@ -253,11 +253,83 @@ $P(2L|V)=\\frac{\\frac{3}{10}.\\frac{2}{100}}{\\frac{5}{10}.\\frac{1}{100}+\\fra
   {
     question: `Nechť $X$ a $Y$ jsou stejně rozdělené nezávislé náhodné veličiny s geometrickým rozdělením s parametrem $p \\in (0, 1)$
 
-    a) Najděte rozdělení $min\\{X, Y\\}$. O jaké rozdělení se jedná (jaký má název)?
+    a) Najděte rozdělení $\\min\\{X, Y\\}$. O jaké rozdělení se jedná (jaký má název)?
     b) Spočtěte pravděpodobnost $P(X > Y)$.`,
     solution: `$P(X>k) * P(Y>k) = \\left[1-\\left(2p-p^2\\right)\\right]^k \\rightarrow Geom(2p - p^2)$
     $P(X>Y) = \\frac{(1-p)}{(2-p)}$`,
     tags: [ "druhy rozdělení", "minimální rozdělení" ],
+    source: ["fitwiki 12. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-12"],
+  },
+
+  {
+    question: `Automat generuje číslice 0 až 9, každou se stejnou pravděpodobností.
+
+    a) Spočtěte střední hodnotu a rozptyl počtu sudých čísel mezi n generovanými hodnotami (nulu považujeme za sudé číslo).
+    b) Kolik čísel musíme generovat, aby se mezi nimi s pravděpodobností 0.975 nacházela alespoň dvě sudá? Použijte CLV!`,
+    solution: `a) $E(X) = \\frac{n}{2}, var(x) = \\frac{n}{4}$
+    b) Je potřeba vygenerovat alespoň 13 čísel.`,
+    steps: `a) Střední hodnota pro binomické rozdělení: $EX = n*p = n * \\frac{1}{2} = \\frac{n}{2}$
+    Rozptyl pro binomické rozdělení: $varX = n*p*(1-p) = n * \\frac{1}{2} * \\frac{1}{2} = \\frac{n}{4}$
+    <hr>
+    b) Rozdělení počtu sudých v n čísel je sice binomické, ale CLV mluví jen o tom, že n i.i.d. výběrů bude mít normální rozdělení.
+
+    Takže nebudeme používat binomické rozdělení pro n jevů, ale vyjdeme z pravděpodobnosti vygenerování sudého čísla (bernouliho rozdělení)
+
+    Pravděpodobnost vytažení sudého čísla je $p$, střední hodnota je $p$, rozptyl je $p(1-p)$.
+
+    V našem případě $EX=\\frac{1}{2}$, $var X=\\frac{1}{4}$.
+
+    CLV říká, že součet n náhodných výběrů bude mít rozdělení $N(n\\cdot E(X), n \\cdot var(X))$.
+
+    $P(\\sum X > \\frac{2-\\frac{n}{2}}{\\sqrt{\\frac{n}{4}}}) = 1 - P(\\sum X < \\frac{2-\\frac{n}{2}}{\\sqrt{\\frac{n}{4}}}) = \\\\ = 1 - \\Phi(\\frac{2-\\frac{n}{2}}{\\sqrt{\\frac{n}{4}}}) = 0.975
+    \\Phi(\\frac{2-\\frac{n}{2}}{\\sqrt{\\frac{n}{4}}}) = 0.025$
+
+    $\\frac{2-\\frac{n}{2}}{\\frac{\\sqrt{n}}{2}}= -2.43$(z tabulek)
+
+    $n - 2.43 \\sqrt{n} - 4 = 0$
+    $\\sqrt{n} = 3.55$ (druhé řešení je záporné číslo, to je nesmysl)
+
+    $n = 12.6$
+
+    Je tedy potřeba vygenerovat alespoň 13 čísel, aby s pravděpodobností 97.5% mezi nimi byly alespoň 2 sudá.`,
+    tags: [ "druhy rozdělení", "CLV" ],
+    source: ["fitwiki 12. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-12"],
+  },
+
+  {
+    question: `Uvažujeme náhodný výběr $n = 25$ napozorovaných hodnot z normálního rozdělení. Součet napozorovaných hodnot a součet kvadrátů hodnot jsme spočetli jako
+    $$\\sum_{i=1}^{n}x_i = 250 \\quad \\sum_{i=1}^{n}x^2_i = 2509$$
+
+    a) Najděte oboustranný intervalový odhad pro střední hodnotu $\\mu$ s věrohodností 95%.
+    b) Najděte oboustranný intervalový odhad pro rozptyl $\\sigma^2$ s věrohodností 95%. `,
+    solution: `a) $(10 - 0.253, 10 + 0.253)$
+    b) $\\left(\\frac{9}{39.364}\\right), \\left(\\frac{9}{12.401}\\right)$`,
+    steps: `a) $\\overline{X}=\\frac{250}{25}=10$
+    $n=25$
+
+    Nevíme směrodatnou odchylku.
+
+    $s = \\sqrt{\\frac{1}{n - 1}((\\sum_{i=1}^{n}x_i^2) - n\\overline{x}^2})$
+    $s = \\sqrt{\\frac{1}{25 - 1}(2509-25*10^2)}$
+    $s=0.6123$
+
+    $\\delta=T_{\\frac{1-p}{2}}^{n-1}\\cdot\\frac{s}{sqrt{n}}$
+    $\\delta=T_{\\frac{1-0.95}{2}}^{25-1}\\cdot\\frac{0.6123}{sqrt{25}}$
+
+    T najdeme v T-tabulka (student).
+
+    $\\delta=0.253$
+    <hr>
+    b) Interval: $(10-0.253;10+0.253)$
+
+    $s=0,6123$ (viz předchozí řešení)
+
+    $\\left[\\left(\\frac{(25-1)\\cdot 0.6123^2}{\\chi_{1-\\frac{1-0.95}{2}}^{2}(25-1)}\\right); \\left(\\frac{(25-1)\\cdot 0.6123^2}{\\chi_{\\frac{1-0.95}{2}}^{2}(25-1)}\\right)\\right]$
+
+    (hledáme v CHI tabulce...)
+
+    $\\left(\\frac{9}{39.364}\\right); \\left(\\frac{9}{12.401}\\right)$`,
+    tags: [ "intervalové odhady" ],
     source: ["fitwiki 12. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-12"],
   },
 
