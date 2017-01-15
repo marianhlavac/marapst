@@ -136,6 +136,7 @@ store.questions = [
     $0 \\notin (0.0569, \\infty)$ => $H_0$ zamítáme s konf. 95%.
     `,
     tags: [ "hypotézy", "intervalové odhady" ],
+    source: [ "fitwiki", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2015-01-14#příklad_7" ]
   },
 
   {
@@ -331,6 +332,163 @@ $P(2L|V)=\\frac{\\frac{3}{10}.\\frac{2}{100}}{\\frac{5}{10}.\\frac{1}{100}+\\fra
     $\\left(\\frac{9}{39.364}\\right); \\left(\\frac{9}{12.401}\\right)$`,
     tags: [ "intervalové odhady" ],
     source: ["fitwiki 12. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-12"],
+  },
+
+  {
+    question: `Nechť náhodné veličiny $X, Y$ jsou výsledky dvou nezávislých hodů vyváženou čtyřstěnnou hrací kostkou.
+
+    a) Popište rozdělení náhodné veličiny $Z = \\min\\{X, Y\\}$.
+    b) Spočítejte střední hodnotu $Z$.
+    c) Jsou $X$ a $Z$ nezávislé? Vysvětlete proč.`,
+    solution: `TODO!`,
+    tags: [ "minimální rozdělení", "tabulka" ],
+    source: [ "fitwiki 12. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-12" ],
+  },
+
+  {
+    question: `Rodina má tři malé chlapce, jejichž věk je postupně 6, 21 a 63 měsíců a kteří měří ($ y_i $) 67, 82 a 121 cm. Předpokládejme, že závislost výšky na věku by byla lineární a vezměme model $ y_i = \\beta_0 + \\beta_1 x_i + \\epsilon_i $, $ i = 1...n $ s normálně rozdělenými chybami $\\epsilon_i$.
+
+    Najděte odhady parametrů $\\beta_0$ a $\\beta_1$. Z výše uvedených dat jsme získali:
+
+    $$\\overline{x} = 30 \\quad \\overline{y} = 90$$ $$\\sum_{i=1}^{3}x^2_i = 4446 \\quad \\sum_{i=1}^{3}y^2_i = 25854$$ $$\\sum_{i=1}^{3}x_i y_i = 9747$$
+    `,
+    solution: `$\\beta_0 = \\frac{5985}{97}$
+    $\\beta_1 = \\frac{183}{194}$`,
+    steps: `$\\beta_1 = \\frac{S_{X, Y}}{S_X^2}$
+    potřebujeme spočítat $S_{X, Y}$ a $S_X^2$
+    $S_{X,Y} = \\frac{1}{n-1}\\sum_{i=1}^{n}(x_i-\\overline{x})(y_i-\\overline{y}) =
+     \\frac{1}{3-1}\\sum_{i=1}^{3}(x_iy_i-x_i\\overline{y}-\\overline{x}y_i+\\overline{x}\\overline{y}) =
+    \\frac{1}{2}(\\sum_{i=1}^3x_iy_i - \\sum_{i=1}^3x_i\\overline{y}-\\sum_{i=1}^3\\overline{x}y_i+\\sum_{i=1}^3\\overline{x}\\overline{y})=
+    \\\\$
+      * $\\overline{x}$ a $\\overline{y}$ jsou konstanty, ty tedy můžeme vytknout před sumu
+      * $x_i$ a $y_i$ se v sumě sčítají přes $_i$
+    $
+    =\\frac{1}{2}(\\sum_{i=1}^3x_iy_i - \\overline{y}\\sum_{i=1}^3x_i -\\overline{x}\\sum_{i=1}^3y_i+\\overline{x}\\overline{y}\\sum_{i=1}^3 1) =
+    \\\\
+    $
+      * teď se zbavíme několika sum tak, že je nahradíme tímto: $\\overline{x} = \\frac{1}{n}\\sum_{i=1}^n x_i  =>  \\sum_{i=1}^n x_i = \\overline{x} n$
+      * $\\sum_{i=1}^n 1 = n$ (je to součet //n// jedniček)
+    $ \\frac{1}{2}(\\sum_{i=1}^3x_iy_i - \\overline{x}\\overline{y}n -\\overline{x}\\overline{y}n+\\overline{x}\\overline{y}n)=
+    \\frac{1}{2}(\\sum_{i=1}^3x_iy_i - \\overline{x}\\overline{y}n) = \\frac{1}{2}(9747 - 30*90*3) = \\frac{1647}{2}
+    $
+    $s_x^2=\\frac{1}{n-1}\\sum_{i=1}^n(x_i-\\overline{x})^2=...$
+    roznásobit, vytknout konstanty a trik s nahrazením jako výše
+    $...=\\frac{1}{2}\\left(\\sum_{i=1}^3x_i^2-2\\overline{x}\\sum_{i=1}^3x_i+\\overline{x}^2*3\\right)=\\frac{1}{2}\\left(4446-2*30*30*3+30^2*3\\right)=873$
+    $\\beta_1 = \\frac{S_{X, Y}}{S_X^2}$
+    $\\beta_1=\\frac{\\frac{1647}{2}}{873}=\\frac{183}{194}=\\approx0,94$
+    $\\beta_0 = \\overline{y} - \\beta_i\\overline{x} $
+    $\\beta_0=90-0,94*30=61,8$`,
+    tags: [ "lineární regrese", "lineární model" ],
+    source: ["", ""],
+  },
+
+  {
+    question: `Z $n = 25$ hodnot náhodného výběru z normálního rozdělení jsme spočetli průměr $ \\overline{x} = 1.08 $ a směrodatnou odchylku $s_x = 0,5$.
+
+    Otestujte hypotézu  $H_0 $ :  μ = 1 versus $H_A $ :  μ < 1 tak, aby pravděpodobnost chybného zamítnutí $H_0 $ byla 5%. Vysvětlete detailně své rozhodnoutí.`,
+    solution: `Nemůžeme zamítnout hypotézu $H_0$.`,
+    steps: ` $\\mu \\in (-\\infty ; \\overline{X} + t_{\\alpha;n-1} * \\frac{S_{X}}{\\sqrt{n}}\\rangle$
+    $H_a $ je jednostranný interval, chceme u něj 5%.
+    $\\alpha = 0.05$
+    $t_{\\alpha;n-1} = t_{0.05;24} = 1.711 $
+    Spočtený konfidenční jednostranný interval:
+    $\\mu \\in (-\\infty ; 1.08 + 1.711 * \\frac{0.5}{\\sqrt{25}}\\rangle$
+    $\\mu \\in (-\\infty ; 1.2511\\rangle$
+    Protože $\\mu = 1 \\in (-\\infty; 1.2511\\rangle$, nemůžeme zamítnout hypotézu
+    $H_0$.`,
+    tags: [ "hypotézy" ],
+    source: ["", ""],
+  },
+
+  {
+    question: `Mějme náhodnou veličinu $X$ s normálním rozdělením a s $\\mu = 100$ a $\\sigma^2 = 100$. Dále pak náhodnou veličinu Y kde $Y = 4X - 300$.(15%)
+
+    a) $P(Y > 130)$
+    b) $cov(X,Y)$`,
+    solution: `a) $0.2266$ (TODO overit)
+    b) $400$`,
+    steps: `a)
+    $E(Y) = 4 * X.\\mu - 300 = 100$
+    $var(Y) = var(4X - 300) = var(4X) = 4^2 * var(X) = 16 * 100$  -  podle vzorce $var(aX + b) = a^2 * var(X)$
+    $var(Y) = 4^2 * .\\sigma^2 = 1600$
+    $P(Y > 130) = P\\left(Y > \\frac{130-100}{\\sqrt{1600}}\\right) = P(Y > 0.75) = 1 - P(Y <= 0.75)$
+    $1 - 0.2734 = 0.7266$
+    Nema to byt takto?
+    $1 - 0.7734 = 0.2266$
+    <hr>
+    b)
+    $cov(X,Y)=E(XY)-E(X)E(Y)$
+    $
+    \\begin{align*}
+    var(X)=E(X^2)-\\left(E(X)\\right)^2 \\rightarrow \\\\ & 100 = E(X^2)-100^2 \\\\ & E(X^2)=10100
+    \\end{align*}
+    $
+    $E(XY)=E(4X^2-300X)=4E\\left(X^2\\right)-300E(X)=4*10100-300*100=10400$
+    $cov(X,Y)=10400-100*100=400$`,
+    tags: [ "výpočty vlastností", "vzorečky" ],
+    source: ["", ""],
+  },
+
+  {
+    question: `Sdružená hustota pravděpodobnosti náhodných veličin $X$ a $Y$ má tvar
+    $f_{X,Y}(x,y)=\\frac{1}{3}(x+y+1)$ pro $x\\in\\left[-1,1\\right]$ a $y\\in\\left[0,1\\right]$
+
+    Najděte korelační koeficient náhodných veličin $X$ a $Y$, tj. $\\rho(X,Y)$`,
+    solution: `$-0,081$`,
+    steps: `$\\rho(x,y)=\\frac{cov(x,y)}{\\sqrt{var(X)*var(Y)}}$
+    $f_X(x)=\\int_0^1 f_{X,Y}(x,y)\\, \\mbox{d}y=\\int_0^1\\frac{1}{3}\\left(x+y+1\\right)\\mbox{d}y=\\frac{1}{6}(2x+3)$
+    $f_Y(y)=\\int_{-1}^1 f_{X,Y}(x,y)\\, \\mbox{d}x=\\int_{-1}^1\\frac{1}{3}\\left(x+y+1\\right)\\mbox{d}x=\\frac{2(y+1)}{3}$
+
+    Nyní zjistíme, že veličiny nejsou nezávislé (jinak by se pravá a levá strana rovnaly):
+    $f_{X,Y}(x,y)==f_Xx*f_Yy$
+    $\\frac{1}{3}\\left(x+y+1\\right) = \\left(\\frac{1}{6}(2x+3)\\right)*\\left(\\frac{2(y+1)}{3}\\right)$
+    <div class="uk-card uk-card-default uk-padding">Kdyby byly nezávislé, pak $cov(x,y)==0$ => $\\rho(x,y)==0$.</div>
+    $cov(X,Y)=E(XY)-E(X)E(Y)$
+    $
+    \\begin{align*}
+    E(X)=\\int_A^A x*f(x) \\mbox{d}x = \\int_{-1}^1 x*\\frac{1}{6}\\left(2x+3\\right)\\mbox{d}x = \\frac{2}{9}
+    \\end{align*}
+    $
+    $
+    \\begin{align*}
+    E(Y)=\\int_A^A y*f(y) \\mbox{d}y = \\int_{0}^1 y*\\frac{2(y+1)}{3}\\mbox{d}y = \\frac{5}{9}
+    \\end{align*}
+    $
+    $
+    \\begin{align*}
+    E(XY)=\\int_0^1 \\int_{-1}^1 \\left(x*y*\\frac{1}{3}(x+y+1)\\right) \\mbox{d}x \\mbox{d}y = \\frac{1}{9}
+    \\end{align*}
+    $
+    $cov(X,Y)=E(XY)-E(X)E(Y)=\\frac{1}{9}-\\frac{2}{9}*\\frac{5}{9}=-\\frac{1}{81}$
+    $\\rho(x,y)=\\frac{cov(x,y)}{\\sqrt{var(X)*var(Y)}}=-0,081$`,
+    tags: [ "korelační koeficient", "výpočty vlastností" ],
+    source: ["fitwiki 18. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-18#p%C5%99%C3%ADklad_3"],
+  },
+
+  {
+    question: `Uvažujme náhodný výběr $n = 16$ napozorovaných hodnot z normálního rozdělení. Výběrový průměr a součet kvadrátů napozorovaných hodnot jsme spočetli jako $$\\overline{X} = 13 \\quad \\text{a} \\quad \\normalsize\\sum\\nolimits_{i=0}^{16}x_i^2 = 2708$$
+
+    V odpovědích níže nemusíte přesně numericky dopočítat krajní body intervalů, ale musíte dosadit správné numerické hodnoty do správných vzorců.
+
+    a) Najděte oboustranný intervalový odhad pro střední hodnotu $\\mu$ s věrohodností 95%.
+    b) Najděte oboustranný intervalový odhad pro rozptyl $\\sigma^2$ s věrohodností 95%.`,
+    solution: `a) $\\left(13-0,27703; 13+0,27703\\right)$
+    b) $ \\left(\\frac{4,056}{27,488};\\frac{4,056}{6,262}\\right)$`,
+    steps: `a)
+Dopočítáme neznámé $s$.
+$s=\\sqrt{\\frac{1}{16-1}*\\left(2708-16*13^2\\right)}=\\frac{2}{\\sqrt{15}}=\\approx0,52$
+
+Používáme T-Table.
+$\\delta=T_{\\frac{1-0,95}{2}}^{16-1}*\\frac{s}{\\sqrt{16}}=T_{0,025}^{15}*\\frac{0,52}{4}=2,131*0,13=0,27703$
+
+Výsledný intervalový odhad: $\\left(13-0,27703; 13+0,27703\\right)$
+<hr>
+b)
+Používáme CHI-Square Table.
+$\\left(\\frac{(16-1)0,52^2}{\\chi_{\\frac{1-0,95}{2};(16-1)}^{2}};\\frac{(16-1)0,52^2}{\\chi_{1-\\frac{1-0,95}{2};(16-1)}^{2}}\\right) = \\left(\\frac{4,056}{27,488};\\frac{4,056}{6,262}\\right)$
+`,
+    tags: [ "intervalové odhady" ],
+    source: ["fitwiki 28. 5. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-05-28#skupina_b5"],
   },
 
 ]
