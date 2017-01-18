@@ -258,7 +258,7 @@ $P(2L|V)=\\frac{\\frac{3}{10}.\\frac{2}{100}}{\\frac{5}{10}.\\frac{1}{100}+\\fra
     b) Spočtěte pravděpodobnost $P(X > Y)$.`,
     solution: `$P(X>k) * P(Y>k) = \\left[1-\\left(2p-p^2\\right)\\right]^k \\rightarrow Geom(2p - p^2)$
     $P(X>Y) = \\frac{(1-p)}{(2-p)}$`,
-    tags: [ "druhy rozdělení", "minimální rozdělení" ],
+    tags: [ "druhy rozdělení", "rozdělení minima" ],
     source: ["fitwiki 12. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-12"],
   },
 
@@ -340,8 +340,8 @@ $P(2L|V)=\\frac{\\frac{3}{10}.\\frac{2}{100}}{\\frac{5}{10}.\\frac{1}{100}+\\fra
     a) Popište rozdělení náhodné veličiny $Z = \\min\\{X, Y\\}$.
     b) Spočítejte střední hodnotu $Z$.
     c) Jsou $X$ a $Z$ nezávislé? Vysvětlete proč.`,
-    solution: `TODO!`,
-    tags: [ "minimální rozdělení", "tabulka" ],
+    solution: `-`,
+    tags: [ "rozdělení minima", "tabulka" ],
     source: [ "fitwiki 12. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-12" ],
   },
 
@@ -489,6 +489,30 @@ $\\left(\\frac{(16-1)0,52^2}{\\chi_{\\frac{1-0,95}{2};(16-1)}^{2}};\\frac{(16-1)
 `,
     tags: [ "intervalové odhady" ],
     source: ["fitwiki 28. 5. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-05-28#skupina_b5"],
+  },
+
+  {
+    question: `Mějme falešnou kostku, z 60 nezávislých hodů kostkou nám padlo 12 šestek. Odhadněte pravděpodobnost šestky v jednom hodu pomocí metody maximální věrohodnosti. Podrobně odvoďte a zdůvodněte výsledek!`,
+    solution: `Binomické rozdělení, $p = \\frac{1}{5}$`,
+    tags: [ "maximální věrohodnost" ],
+    source: [ "fitwiki 26. 1. 2015", "https://fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2015-01-26#příklad_4" ],
+  },
+
+  {
+    question: `Buď $X$ náhodná veličina s Poissonovým rozdělením s parametrem $\\lambda$. Metodou maximální věrohodnosti určete odhad parametru $\\lambda$.`,
+    solution: `-`,
+    tags: [ "maximální věrohodnost" ],
+    source: [ "fitwiki 5. 2. 2015", "https://fit-wiki.cz/_detail/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/050215_a_4.jpg?id=%C5%A1kola%3Ap%C5%99edm%C4%9Bty%3Abi-pst%3Apst_zkou%C5%A1ka_2015-02-05" ],
+  },
+
+  {
+    question: `Nechť X a Y jsou stejně rozdělené nezávislé náhodné veličiny s geometrickým rozdělením s parametrem $p \\in (0, 1)$.
+
+    a) Najděte rozdělení $\\min\\{X, Y\\}$. O jaké rozdělení se jedná?
+    b) Spočtěte pravděpodobnost $P(X > Y)$.`,
+    solution: `-`,
+    tags: [ "druhy rozdělení", "rozdělení minima" ],
+    source: [ "fitwiki 12. 6. 2012", "https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2012-06-12?s[0]=geom#př%C3%ADklad_3" ],
   },
 
 ]
