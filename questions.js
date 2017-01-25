@@ -1,10 +1,11 @@
 // (1) Se sem nejprve přidej asi
 store.contributors = [
   ["Marián Hlaváč", "marian.hlavac@fit.cvut.cz"],
+  ["Matěj Pokorný", "pokorm11@fit.cvut.cz"],
 ]
 
 // (2) Asi bys měl updatnout tohle, ale je mi to jedno
-store.lastUpdate = "2017-01-14"
+store.lastUpdate = "2017-01-24"
 
 // (3) Nasyp sem co nejvíc otázek co máš, podle tvaru co je naznačenej níž,
 //     úplně dolů, neprohazuj pořadí, nedělej chyby,
@@ -109,7 +110,8 @@ store.questions = [
 
     a) Jak velký náhodný výběr budeme potřebovat?
     b) Předpokládejme, že náhodným výběrem o velikosti určené v předchozím bodě jste spočetli výběrový průměr jako $\\widehat{X} = 1.5$. Najděte oboustranný 90% konfidenční interval pro $\\mu$.`,
-    solution: `$n = (\\frac{12 \\cdot 2.575}{2.524})^2$`,
+    solution: `a) $n = 25$
+    b) $(0.69, 2.3)$`,
     steps: `
     $ \\alpha = (1 - p) = (1 - 0.99) = 0.01 $
     $z_{0.005} = 2.575$ (z tabulek)
@@ -117,7 +119,12 @@ store.questions = [
     Interval je: $(\\overline{X} - \\frac{\\sigma}{\\sqrt{n}} z_{\\frac{\\alpha}{2}}; \\overline{X} + \\frac{\\sigma}{\\sqrt{n}} z_{\\frac{\\alpha}{2}})$
     $2 \\cdot \\frac{\\sigma}{\\sqrt{n}} \\cdot z_{\\frac{\\alpha}{2}} = 2.524$
     $2 \\cdot \\frac{\\sqrt{6}}{\\sqrt{n}} \\cdot 2.575 = 2.524$
-    $n = (\\frac{12 \\cdot 2.575}{2.524})^2$`,
+    $n = 25$
+    <hr>
+    $ \\alpha = (1 - p) = (1 - 0.9) = 0.1 $
+    $|z(\\frac{0.1}{2})| = 1.65$ (z tabulek)
+    
+    $\\left(\\widehat{X}-z(\\frac{\\alpha}{2})\\frac{\\sigma}{\\sqrt{n}}, \\widehat{X}+z(\\frac{\\alpha}{2})\\frac{\\sigma}{\\sqrt{n}}\\right) = \\left(1.5-1.65\\cdot\\frac{\\sqrt{6}}{5}, 1.5+1.65\\cdot\\frac{\\sqrt{6}}{5}\\right)=\\left(0.69, 2.3\\right)$`,
     tags: [ "intervalové odhady", "náhodný výběr" ],
   },
 
