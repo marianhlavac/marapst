@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+var fs = require('fs')
+var path = require('path')
+
+var questions = fs.readdirSync(path.join(__dirname, '../questions'))
+
+var meta = {
+  built: new Date().toISOString(),
+  c: questions.length - 1,
+  contribts: 'tbp',
+  tags: 'tbp'
+}
+
+fs.writeFile(path.join(__dirname, '../questions/meta.json'), JSON.stringify(meta), function () {
+  console.log(`Prebuilded. ${meta.c} questions counted.`)
+})

@@ -16,13 +16,10 @@ $(document).ready(function () {
 
   loadQuestionsMeta(function (meta) {
     appState.questionsMeta = meta
-    appState.totalQuestions = meta.q.length
+    appState.totalQuestions = meta.c
 
-    loadQuestion(appState.displayedQuestionId, function(content) {
-      var meta = appState.questionsMeta.q[appState.displayedQuestionId]
-      meta.id = appState.displayedQuestionId
-
-      displayQuestion(meta, content, appState.totalQuestions)
+    loadQuestion(appState.displayedQuestionId, function(meta, content) {
+      displayQuestion(meta, content)
     })
   })
 })
@@ -30,16 +27,17 @@ $(document).ready(function () {
 $(window).on('hashchange', function() {
   appState.displayedQuestionId = parseInt(window.location.hash.substr(1) - 1)
 
-  loadQuestion(appState.displayedQuestionId, function(content) {
-    var meta = appState.questionsMeta.q[appState.displayedQuestionId]
-    meta.id = appState.displayedQuestionId
-
-    displayQuestion(meta, content, appState.totalQuestions)
+  loadQuestion(appState.displayedQuestionId, function(meta, content) {
+    displayQuestion(meta, content)
   })
 })
 
 $("#reset").on('click', function() {
   resetUserData(localStorage)
+})
+
+$("#known-toggle").on('click', function() {
+  toggleKnownQuestion(appState.displayedQuestionId)
 })
 
 // ---
@@ -54,29 +52,36 @@ function loadQuestionsMeta(callback) {
 
 function loadQuestion(id, callback) {
   $.get('questions/' + id + '.md').done(function(content) {
-    callback(content)
+    // Parse the frontmatter meta from the content
+    parsedQuestion = parseFrontmatter(content)
+    parsedQuestion.meta.id = id
+
+    callback(parsedQuestion.meta, parsedQuestion.content)
   }).fail(function(err) {
     alert('kek:' + err) // TODO: fix this
   })
 }
 
-function displayQuestion(meta, content, total) {
-  // Parse the frontmatter meta from the content
-  parsedQuestion = parseFrontmatter(content)
-  parsedQuestion.meta.id = meta.id
-
+function displayQuestion(meta, content) {
   // Display the meta section
-  displayQuestionMeta(parsedQuestion.meta, total)
+  displayQuestionMeta(parsedQuestion.meta, appState.totalQuestions)
 
   // Put the markdown content in there
   markjax(parsedQuestion.markdown, document.getElementById('q-content'))
 
-  // Update UI
-  updateButtons(meta.id, total)
-
   // Save this question as displayed
   appState.userData.lastDisplayed = meta.id
-  appState.userData.displayed.push(meta.id)
+  if (appState.userData.displayed.indexOf(meta.id) === -1) {
+    appState.userData.displayed.push(meta.id)
+  }
+
+  // Update UI
+  var isKnown = appState.userData.known.indexOf(meta.id) !== -1
+  var displayedCount = appState.userData.displayed.length
+  var knownCount = appState.userData.known.length
+  updateButtons(meta.id, appState.totalQuestions, isKnown)
+  updateProgressBars(displayedCount, knownCount, appState.totalQuestions)
+
   window.location.hash = meta.id + 1
   synchronizeUserData(localStorage, appState.userData)
 }
@@ -84,19 +89,50 @@ function displayQuestion(meta, content, total) {
 function displayQuestionMeta(meta, total) {
   $('#q-title').text(`Příklad ${meta.id+1}`)
   $('#q-tags').html('')
-  
+
   meta.tags.map(function(tag) {
     $('#q-tags').append(`<span class="uk-badge">${tag}</span>`)
   })
+
+  if (meta.verified) {
+    $('#q-title').append(`<span class="uk-badge verified-badge"
+                          title="Ověřil <strong>${meta.verified}</strong>" uk-tooltip></span>`)
+  }
+
+  if (appState.userData.known.indexOf(meta.id) !== -1) {
+    $('#q-title').append(`<span class="uk-label uk-label-success">Umíš</span>`)
+  } else if (appState.userData.displayed.indexOf(meta.id) !== -1) {
+    $('#q-title').append(`<span class="uk-label">Zobrazeno</span>`)
+  }
 
   var srcUrlParts = meta.source.split('/')
   var srcUrlDomain = srcUrlParts[2].startsWith('www') ? srcUrlParts[2].substring(4) : srcUrlParts[2]
   var srcShortUrl = `${srcUrlDomain}/.../${srcUrlParts[srcUrlParts.length - 1]}`
 
-  $('#q-meta').html(`${meta.id+1}/${total} | <a href="${meta.source}">${srcShortUrl}</a>`)
+  $('#q-meta').html(`${meta.id+1}/${total} | Přidal(a) ${meta.author} |
+                    <a href="${meta.source}">${srcShortUrl}</a>`)
 }
 
-function updateButtons(id, total) {
+function toggleKnownQuestion(id) {
+  var isKnown = appState.userData.known.indexOf(id) !== -1
+
+  if (isKnown) {
+    appState.userData.known.splice(appState.userData.displayed.indexOf(id), 1)
+  } else {
+    appState.userData.known.push(id)
+  }
+
+  // Update UI
+  isKnown = !isKnown
+  var displayedCount = appState.userData.displayed.length
+  var knownCount = appState.userData.known.length
+  updateButtons(id, appState.totalQuestions, isKnown)
+  updateProgressBars(displayedCount, knownCount, appState.totalQuestions)
+
+  synchronizeUserData(localStorage, appState.userData)
+}
+
+function updateButtons(id, total, isKnown) {
   if (id > 0) {
     $('.q-button-prev').attr('href', '#' + id)
   } else {
@@ -115,6 +151,7 @@ function updateButtons(id, total) {
   }
 
   $('.q-button-rand').attr('href', '#' + (next + 1))
+  $('.question-known').prop('checked', isKnown)
 }
 
 function updateProgressBars(displayed, known, total) {
@@ -134,7 +171,7 @@ function resetUserData(storage) {
 
 function readUserData(storage) {
   // Init local storage if it's app first run
-  if (!storage.isSet && storage.version != '110') {
+  if (!storage.isSet || storage.version != '110') {
     storage.isSet = 'true'
     storage.version = '110'
     storage.displayed = '[]'

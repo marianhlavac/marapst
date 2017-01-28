@@ -27,14 +27,14 @@
           <a class="uk-button uk-button-default uk-align-right q-button-next">Další</a>
         </div>
         <article id="q" class="question">
-          <span id="q-tags"></span>
-          <h1 id="q-title"></h1>
+          <div id="q-tags" class="question-tags"></div>
+          <h1 id="q-title" class="question-title"></h1>
           <section class="uk-text-meta" id="q-meta"></section>
           <section id="q-content" class="question-content">
           </section>
         </article>
         <div class="uk-text-center">
-            <label id="q-known-toggle"><input class="uk-checkbox" type="checkbox"> Tohle umím</label>
+            <label><input class="uk-checkbox question-known" type="checkbox" id="known-toggle"> Tohle umím</label>
         </div>
         <div>
           <a class="uk-button uk-button-default q-button-prev">Předchozí</a>
@@ -42,19 +42,21 @@
         </div>
       </div>
       <div class="uk-width-1-3@m">
-        <h3 class="uk-heading-divider">Přehled</h3>
-        <p>
-          <progress class="uk-progress" id="shown-progress" value="0" max="0"></progress>
-          Zobrazeno <strong id="shown-questions">0</strong> z <span class="total-questions">?</span> příkladů.
-        </p>
-        <p>
-          <progress class="uk-progress" id="know-progress" value="0" max="0"></progress>
-          Umíš <strong id="know-questions">0</strong> z <span class="total-questions">?</span> příkladů.
-        </p>
-        <h3 class="uk-heading-divider">Výběr</h3>
-        <a class="uk-button uk-width-1-1 uk-button-default uk-margin-small-bottom q-button-rand">
-          Náhodný ze všech
-        </a>
+        <aside>
+          <h1>Přehled</h1>
+          <p>
+            <progress class="uk-progress" id="shown-progress" value="0" max="0"></progress>
+            Zobrazeno <strong id="shown-questions">0</strong> z <span class="total-questions">?</span> příkladů.
+          </p>
+          <p>
+            <progress class="uk-progress" id="know-progress" value="0" max="0"></progress>
+            Umíš <strong id="know-questions">0</strong> z <span class="total-questions">?</span> příkladů.
+          </p>
+          <h1>Výběr</h1>
+          <a class="uk-button uk-width-1-1 uk-button-default uk-margin-small-bottom q-button-rand">
+            Náhodný ze všech
+          </a>
+        </aside>
       </div>
     </div>
     <hr>

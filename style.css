@@ -21,5 +21,42 @@ p {
 }
 
 a.uk-button:not([href]) {
-  opacity: .33;
+  opacity: 0.33;
+}
+
+.question-tags {
+  margin-left: -0.75rem;
+}
+
+.question-tags .uk-badge {
+  background: #f8f8f8;
+  color: #999;
+  margin-right: 0.33em;
+  padding: 0.33em 0.75rem;
+}
+
+.verified-badge {
+  background: #222;
+  color: white;
+  padding: 0;
+  margin-left: .5em;
+  height: 21px;
+  line-height: 21px;
+  min-width: 21px;
+}
+
+.verified-badge::before {
+  content: '\2713';
+}
+
+.question-content {
+  margin: 2em 0;
+}
+
+.question-title .uk-label {
+  margin-left: .5em;
+}
+
+aside h1 {
+  font-size: 1.5rem;
 }

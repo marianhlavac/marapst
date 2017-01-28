@@ -15,7 +15,8 @@ Marapst is dunno, TODO.
 3. Create new file `questions/[id].md`.
 4. Put the question there.
 5. Make sure it's valid [Markdown](http://daringfireball.net/projects/markdown/) document, check the LaTeX expressions as well.
-6. Well, that's all, thanks.
+6. Run `bin/prebuild` before pushing.
+7. Well, that's all, thanks.
 
 ### Modifying the app
 
