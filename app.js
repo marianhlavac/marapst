@@ -1,5 +1,6 @@
 /* App global state */
 var appState = {
+  page: 'question',
   displayedQuestionId: 0,
   totalQuestions: 0,
   questionsMeta: {},
@@ -19,7 +20,7 @@ $(document).ready(function () {
     appState.questionsMeta = meta
     appState.totalQuestions = meta.c
 
-    if (isCatalog) {
+    if (appState.page == 'catalog') {
       displayCatalog()
     } else {
       loadQuestion(appState.displayedQuestionId, function(meta, content) {
@@ -263,7 +264,7 @@ function displayCatalog() {
 
     $('#q-catalog').append(`<div>
         <div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body">
-            <p><a href="index.html#${i+1}">${question.peek}</a></p>
+            <p><a href="index.html#${parseInt(i)+1}">${question.peek}</a></p>
         </div>
     </div>`)
   }
