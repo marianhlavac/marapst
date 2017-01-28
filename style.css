@@ -1,0 +1,25 @@
+p {
+  margin: 0.25em 0 0.5em 0;
+}
+
+.question h1 {
+  font-size: 2rem;
+  margin: 0.25em 0;
+}
+
+.question-content h1 {
+  font-size: 1.5rem;
+  margin: 0.5em 0;
+}
+
+.question-content h2 {
+  font-size: 1.25rem;
+}
+
+.question-content h3 {
+  font-size: 1rem;
+}
+
+a.uk-button:not([href]) {
+  opacity: .33;
+}

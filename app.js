@@ -1,184 +1,166 @@
-/**
- * App global state.
- */
-var store = {
-  displayedQuestion: 0,
+var appState = {
+  displayedQuestionId: 0,
+  totalQuestions: 0,
+  questionsMeta: {},
+  userData: {}
 }
 
-/**
- * Updates the UI, propagating all state variables to the DOM.
- */
-function updateUI() {
-  question = store.questions[store.displayedQuestion]
+$(document).ready(function () {
+  appState.userData = readUserData(localStorage)
 
-  // Update single-value always displayed fields
-  $('#question-id').html(store.displayedQuestion + 1)
-  $('#question-page').html(store.displayedQuestion + 1 + '/' + store.totalQuestions)
-  $('#question-content').html(question.question.replace(/\n/g,'<br>'))
-  $('#question-solution').html(question.solution.replace(/\n/g,'<br>'))
+  if (window.location.hash) {
+    appState.displayedQuestionId = parseInt(window.location.hash.substr(1) - 1)
+  } else {
+    appState.displayedQuestionId = appState.userData.lastDisplayed
+  }
 
-  // Update tags
-  $('#question-tags').html('')
-  if ('tags' in question) {
-    question.tags.map(function(tag) {
-      $('#question-tags').append(`<span class='uk-badge'>${tag}</span> `)
+  loadQuestionsMeta(function (meta) {
+    appState.questionsMeta = meta
+    appState.totalQuestions = meta.q.length
+
+    loadQuestion(appState.displayedQuestionId, function(content) {
+      var meta = appState.questionsMeta.q[appState.displayedQuestionId]
+      meta.id = appState.displayedQuestionId
+
+      displayQuestion(meta, content, appState.totalQuestions)
     })
-  }
+  })
+})
 
-  // Update steps section or hide it
-  if ('steps' in question) {
-    $('#question-steps').html(question.steps.replace(/\n/g,'<br>'))
-    $('#question-steps-tab').show()
-  } else {
-    $('#question-steps-tab').hide()
-  }
+$(window).on('hashchange', function() {
+  appState.displayedQuestionId = parseInt(window.location.hash.substr(1) - 1)
 
-  // Update source section or hide it
-  if ('source' in question) {
-    $('#question-source a').text(question.source[0]).attr('href', question.source[1])
-  } else {
-    $('#question-source a').text('')
-  }
+  loadQuestion(appState.displayedQuestionId, function(content) {
+    var meta = appState.questionsMeta.q[appState.displayedQuestionId]
+    meta.id = appState.displayedQuestionId
 
-  // Determine and update question status
-  if (store.userData.knownQuestions.indexOf(store.displayedQuestion.toString()) != -1) {
-    $('#question-status').html('<span class="uk-label uk-label-success">umíš</span>')
-    $('#known-toggle input').prop('checked', true)
-  } else if (store.userData.displayedQuestions.indexOf(store.displayedQuestion.toString()) != -1) {
-    $('#question-status').html('<span class="uk-label">zobrazeno</span>')
-    $('#known-toggle input').prop('checked', false)
-  } else {
-    $('#question-status').html(' ')
-    $('#known-toggle input').prop('checked', false)
-  }
+    displayQuestion(meta, content, appState.totalQuestions)
+  })
+})
 
-  // Set this question as displayed
-  setDisplayedQuestion(store.displayedQuestion)
-
-  // Update progress bars
-  updateProgressBars()
-
-  // Queue MathJax re-rendering
-  MathJax.Hub.Queue(['Typeset', MathJax.Hub])
-}
-
-/**
- * Hides all solution and steps sections.
- */
-function hideSolution() {
-  $('#question-solution-tab').removeClass('uk-open')
-  $('#question-solution').attr('aria-hidden', 'true').attr('hidden', 'hidden')
-  $('#question-steps-tab').removeClass('uk-open')
-  $('#question-steps').attr('aria-hidden', 'true').attr('hidden', 'hidden')
-}
-
-function readUserData() {
-  store.userData = {
-    displayedQuestions: localStorage.displayed.split(','),
-    knownQuestions: localStorage.known.split(','),
-    lastDisplayed: localStorage.lastDisplayed,
-  }
-}
-
-function setDisplayedQuestion(id) {
-  localStorage.lastDisplayed = id
-  if (store.userData.displayedQuestions.indexOf(id.toString()) == -1) {
-    store.userData.displayedQuestions.push(id.toString())
-    localStorage.displayed = store.userData.displayedQuestions.join(',')
-  }
-}
-
-function setKnownQuestion(id, isKnown) {
-  if (isKnown && store.userData.knownQuestions.indexOf(id.toString()) == -1) {
-    store.userData.knownQuestions.push(id.toString())
-  } else {
-    store.userData.knownQuestions.splice(store.userData.knownQuestions.indexOf(id.toString()), 1)
-  }
-  localStorage.known = store.userData.knownQuestions.join(',')
-}
-
-function updateProgressBars() {
-  $('.total-questions').text(store.totalQuestions)
-
-  $('#shown-progress').attr('value', store.userData.displayedQuestions.length - 1)
-    .attr('max', store.totalQuestions)
-  $('#shown-questions').text(store.userData.displayedQuestions.length - 1)
-
-  $('#know-progress').attr('value', store.userData.knownQuestions.length - 1)
-    .attr('max', store.totalQuestions)
-  $('#know-questions').text(store.userData.knownQuestions.length - 1)
-}
+$("#reset").on('click', function() {
+  resetUserData(localStorage)
+})
 
 // ---
 
-/**
- * Initialization after page load.
- */
-$(document).ready(setTimeout(function() {
-  // Fill in local storage data if they are not present.
-  if (!localStorage.isSet) {
-    localStorage.isSet = 'true'
-    localStorage.displayed = ' '
-    localStorage.known = ' '
-    localStorage.lastDisplayed = '0'
+function loadQuestionsMeta(callback) {
+  $.get('questions/meta.json').done(function(meta) {
+    callback(JSON.parse(meta))
+  }).fail(function(err) {
+    alert('lel:' + err) // TODO: fix this
+  })
+}
+
+function loadQuestion(id, callback) {
+  $.get('questions/' + id + '.md').done(function(content) {
+    callback(content)
+  }).fail(function(err) {
+    alert('kek:' + err) // TODO: fix this
+  })
+}
+
+function displayQuestion(meta, content, total) {
+  // Parse the frontmatter meta from the content
+  parsedQuestion = parseFrontmatter(content)
+  parsedQuestion.meta.id = meta.id
+
+  // Display the meta section
+  displayQuestionMeta(parsedQuestion.meta, total)
+
+  // Put the markdown content in there
+  markjax(parsedQuestion.markdown, document.getElementById('q-content'))
+
+  // Update UI
+  updateButtons(meta.id, total)
+
+  // Save this question as displayed
+  appState.userData.lastDisplayed = meta.id
+  appState.userData.displayed.push(meta.id)
+  window.location.hash = meta.id + 1
+  synchronizeUserData(localStorage, appState.userData)
+}
+
+function displayQuestionMeta(meta, total) {
+  $('#q-title').text(`Příklad ${meta.id+1}`)
+  $('#q-tags').html('')
+  
+  meta.tags.map(function(tag) {
+    $('#q-tags').append(`<span class="uk-badge">${tag}</span>`)
+  })
+
+  var srcUrlParts = meta.source.split('/')
+  var srcUrlDomain = srcUrlParts[2].startsWith('www') ? srcUrlParts[2].substring(4) : srcUrlParts[2]
+  var srcShortUrl = `${srcUrlDomain}/.../${srcUrlParts[srcUrlParts.length - 1]}`
+
+  $('#q-meta').html(`${meta.id+1}/${total} | <a href="${meta.source}">${srcShortUrl}</a>`)
+}
+
+function updateButtons(id, total) {
+  if (id > 0) {
+    $('.q-button-prev').attr('href', '#' + id)
+  } else {
+    $('.q-button-prev').removeAttr('href')
   }
 
-  // Read user data.
-  readUserData()
+  if (id < total - 1) {
+    $('.q-button-next').attr('href', '#' + (id + 2))
+  } else {
+    $('.q-button-next').removeAttr('href')
+  }
 
-  // Set displayed question to the last displayed.
-  store.displayedQuestion = parseInt(store.userData.lastDisplayed)
+  var next = appState.displayedQuestionId
+  while (next == appState.displayedQuestionId) {
+    next = Math.floor(Math.random() * total)
+  }
 
-  // Update the UI on start.
-  updateUI()
+  $('.q-button-rand').attr('href', '#' + (next + 1))
+}
 
-  // Display contributors in footer.
-  store.contributors.map(function(contributor) {
-    $('#contributors').append(`<a href="mailto:${contributor[1]}">${contributor[0]}</a> `)
-  })
-}, 500))
+function updateProgressBars(displayed, known, total) {
+  $('.total-questions').text(total)
 
-/**
- * Prev button click handling.
- */
-$('#prev-question-top, #prev-question-bot').click(function () {
-  if (store.displayedQuestion <= 0) return
-  store.displayedQuestion--
-  hideSolution()
-  updateUI()
-})
+  $('#shown-progress').attr('value', displayed).attr('max', total)
+  $('#shown-questions').text(displayed)
 
-/**
- * Next button click handling.
- */
-$('#next-question-top, #next-question-bot').click(function () {
-  if (store.displayedQuestion >= store.totalQuestions - 1) return
-  store.displayedQuestion++
-  hideSolution()
-  updateUI()
-})
+  $('#know-progress').attr('value', known).attr('max', total)
+  $('#know-questions').text(known)
+}
 
-/**
- * Random button click handling.
- */
-$('#rand-question').click(function () {
-  store.displayedQuestion = Math.floor(Math.random() * store.totalQuestions)
-  hideSolution()
-  updateUI()
-})
-
-/**
- * Random button click handling.
- */
-$('#reset').click(function () {
-  localStorage.isSet = ''
+function resetUserData(storage) {
+  storage.isSet = ''
   location.reload()
-})
+}
 
-/**
- * Known toggle click handling.
- */
-$('#known-toggle input').change(function () {
-  setKnownQuestion(store.displayedQuestion, $(this).is(':checked'))
-  updateProgressBars()
-})
+function readUserData(storage) {
+  // Init local storage if it's app first run
+  if (!storage.isSet && storage.version != '110') {
+    storage.isSet = 'true'
+    storage.version = '110'
+    storage.displayed = '[]'
+    storage.known = '[]'
+    storage.lastDisplayed = '0'
+  }
+
+  return {
+    lastDisplayed: parseInt(storage.lastDisplayed),
+    displayed: JSON.parse(storage.displayed),
+    known: JSON.parse(storage.known)
+  }
+}
+
+function synchronizeUserData(storage, userData) {
+  storage.isSet = true
+  storage.displayed = JSON.stringify(userData.displayed)
+  storage.known = JSON.stringify(userData.known)
+  storage.lastDisplayed = userData.lastDisplayed
+}
+
+function parseFrontmatter(content) {
+  var r = /^(-{3}(?:\n|\r)([\w\W]+?)(?:\n|\r)-{3})?([\w\W]*)*/g.exec(content)
+
+  return {
+    meta: jsyaml.load(r[2]),
+    markdown: r[3]
+  }
+}

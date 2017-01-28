@@ -2,27 +2,10 @@
 <html>
 <head>
   <title>maraPST</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.2/css/uikit.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.2/js/uikit.min.js"></script>
-  <script type="text/javascript" async
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-  </script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-  </script>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-51630782-4', 'auto');
-    ga('send', 'pageview');
-
-  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.2/css/uikit.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav class="uk-navbar-container" uk-navbar>
@@ -30,7 +13,9 @@
       <a class="uk-navbar-item uk-logo" href="index.html">marapst</a>
       <ul class="uk-navbar-nav">
         <li><a href="index.html">Procvičovat</a></li>
+        <li><a href="catalog.html">Katalog</a></li>
         <li><a href="butwhy.html">Proč</a></li>
+        <li><a href="contributors.html">Přispěvatelé</a></li>
       </ul>
     </div>
   </nav>
@@ -38,45 +23,22 @@
     <div uk-grid>
       <div class="uk-width-expand@m">
         <div class="uk-margin-bottom">
-          <button class="uk-button uk-button-default" id="prev-question-top">Předchozí</button>
-          <button class="uk-button uk-button-default uk-align-right" id="next-question-top">Další</button>
+          <a class="uk-button uk-button-default q-button-prev">Předchozí</a>
+          <a class="uk-button uk-button-default uk-align-right q-button-next">Další</a>
         </div>
-        <span id="question-tags"></span>
-        <h2 class="uk-margin-remove">
-          Příklad #<span id="question-id">?</span>
-          <span id="question-status"></span>
-        </h2>
-        <div class="uk-text-meta">
-          <span id="question-page">?/?</span>&nbsp;|&nbsp;
-          <span id="question-source">
-            <a href="https://www.fit-wiki.cz/%C5%A1kola/p%C5%99edm%C4%9Bty/bi-pst/pst_zkou%C5%A1ka_2015-01-08">
-              fitwiki 8. 1. 2015
-            </a>
-          </span>
-        </div>
-        <ul uk-accordion="multiple: true">
-          <li class="uk-open">
-            <h3 class="uk-accordion-title">Zadání</h3>
-            <div class="uk-accordion-content" id="question-content">
-            </div>
-          </li>
-          <li id="question-solution-tab">
-            <h3 class="uk-accordion-title">Řešení</h3>
-            <div class="uk-accordion-content" id="question-solution">
-            </div>
-          </li>
-          <li id="question-steps-tab">
-            <h3 class="uk-accordion-title">Postup</h3>
-            <div class="uk-accordion-content" id="question-steps">
-            </div>
-          </li>
-        </ul>
+        <article id="q" class="question">
+          <span id="q-tags"></span>
+          <h1 id="q-title"></h1>
+          <section class="uk-text-meta" id="q-meta"></section>
+          <section id="q-content" class="question-content">
+          </section>
+        </article>
         <div class="uk-text-center">
-            <label id="known-toggle"><input class="uk-checkbox" type="checkbox"> Tohle umím</label>
+            <label id="q-known-toggle"><input class="uk-checkbox" type="checkbox"> Tohle umím</label>
         </div>
         <div>
-          <button class="uk-button uk-button-default" id="prev-question-bot">Předchozí</button>
-          <button class="uk-button uk-button-default uk-align-right" id="next-question-bot">Další</button>
+          <a class="uk-button uk-button-default q-button-prev">Předchozí</a>
+          <a class="uk-button uk-button-default uk-align-right q-button-next">Další</a>
         </div>
       </div>
       <div class="uk-width-1-3@m">
@@ -90,12 +52,9 @@
           Umíš <strong id="know-questions">0</strong> z <span class="total-questions">?</span> příkladů.
         </p>
         <h3 class="uk-heading-divider">Výběr</h3>
-        <button class="uk-button uk-width-1-1 uk-button-default uk-margin-small-bottom" id="rand-question">
+        <a class="uk-button uk-width-1-1 uk-button-default uk-margin-small-bottom q-button-rand">
           Náhodný ze všech
-        </button>
-        <button class="uk-button uk-width-1-1 uk-button-default uk-margin-small-bottom">
-          Náhodný, který nevím
-        </button>
+        </a>
       </div>
     </div>
     <hr>
@@ -103,16 +62,23 @@
     <button class="uk-button uk-button-default uk-button-small uk-align-right" id="reset">
       Reset user data
     </button>
-    <div class="uk-text-small">Marián Hlaváč, 2017</div>
-    <div class="uk-text-small"><a href="https://github.com/mmajko/marapst">github</a>, question contributors: <span id="contributors"></span></div>
+    <div class="uk-text-small"><strong>marapst v1.1.0</strong> Marián Hlaváč, 2017</div>
+    <div class="uk-text-small"><a href="https://github.com/mmajko/marapst">github</a>, <a href="contributors.html">question contributors</a></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.2/js/uikit.min.js"></script>
+    <script type="text/javascript" src="https://codeassign.github.io/markjax/dist/markjax.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.7.0/js-yaml.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-51630782-4', 'auto');
+      ga('send', 'pageview');
+    </script>
   </div>
-  <script src="app.js"></script>
-  <script src="questions.js"></script>
-  <style type="text/css">
-    #question-tags span {
-      background: #eee;
-      color: #666;
-    }
-  </style>
 </body>
 </html>
