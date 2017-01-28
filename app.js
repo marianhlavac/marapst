@@ -109,8 +109,16 @@ function displayQuestionMeta(meta, total) {
   var srcUrlDomain = srcUrlParts[2].startsWith('www') ? srcUrlParts[2].substring(4) : srcUrlParts[2]
   var srcShortUrl = `${srcUrlDomain}/.../${srcUrlParts[srcUrlParts.length - 1]}`
 
-  $('#q-meta').html(`${meta.id+1}/${total} | Přidal(a) ${meta.author} |
+  $('#q-meta').html(`${meta.id+1}/${total} | <span id="q-author">Přidal(a) ${meta.author}</a></span> |
                     <a href="${meta.source}">${srcShortUrl}</a>`)
+
+  if (meta.editors) {
+    if (Array.isArray(meta.editors)) {
+      $('#q-author').attr('uk-tooltip', true).attr('title', 'Upravili ' + meta.editors.join(', ')).append(' <sup>+</sup>')
+    } else {
+      $('#q-author').attr('uk-tooltip', true).attr('title', 'Upravil ' + meta.editors).append(' <sup>+</sup>')
+    }
+  }
 }
 
 function toggleKnownQuestion(id) {
