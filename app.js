@@ -225,10 +225,21 @@ function readUserData(storage) {
   // Init local storage if it's app first run
   if (!storage.isSet || storage.version != '110') {
     storage.isSet = 'true'
-    storage.version = '110'
     storage.displayed = '[]'
-    storage.known = '[]'
     storage.lastDisplayed = '0'
+
+    // Transfer old user data, if needed
+    if (storage.version != '110' && storage.known) {
+      storage.known = JSON.stringify(storage.known.split(',').filter(function (el) {
+        return el !== '' && el >= 0
+      }).map(function (el) {
+        return parseInt(el)
+      }))
+    } else {
+      storage.known = '[]'
+    }
+
+    storage.version = '110'
   }
 
   return {
