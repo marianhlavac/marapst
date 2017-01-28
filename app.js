@@ -102,6 +102,7 @@ function displayQuestion(meta, content) {
   var knownCount = appState.userData.known.length
   updateButtons(meta.id, appState.totalQuestions, isKnown)
   updateProgressBars(displayedCount, knownCount, appState.totalQuestions)
+  updateTags(appState.questionsMeta.tags)
 
   // Update browser data
   window.location.hash = meta.id + 1
@@ -157,7 +158,9 @@ function toggleKnownQuestion(id) {
   var isKnown = appState.userData.known.indexOf(id) !== -1
 
   if (isKnown) {
-    appState.userData.known.splice(appState.userData.displayed.indexOf(id), 1)
+    appState.userData.known = appState.userData.known.filter(function (el) {
+      return el != id
+    })
   } else {
     appState.userData.known.push(id)
   }
@@ -208,6 +211,27 @@ function updateProgressBars(displayed, known, total) {
 
   $('#know-progress').attr('value', known).attr('max', total)
   $('#know-questions').text(known)
+}
+
+/**
+ * Updates the tags section
+ */
+function updateTags(tags) {
+  $('#tags').html('')
+
+  for (var i in tags) {
+    filtered = tags[i].filter(function (el) { return el != appState.displayedQuestionId })
+
+    var relatedQuestions = filtered.length
+
+    if (relatedQuestions > 0) {
+      var relatedSelection = Math.floor(Math.random() * relatedQuestions)
+      var id = parseInt(filtered[relatedSelection])
+      var tag = i
+
+      $('#tags').append(`<a href="#${id+1}" class="uk-badge">${tag}</a> `)
+    }
+  }
 }
 
 /**

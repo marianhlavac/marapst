@@ -1,22 +1,45 @@
 #!/usr/bin/env node
 var fs = require('fs')
 var path = require('path')
+var jsyaml = require(path.join(__dirname, '../lib/js-yaml-3.7.0/dist/js-yaml.js'))
 
 var questions = fs.readdirSync(path.join(__dirname, '../questions'))
 
 var count = 0
 var contributors = []
+var tags = {}
 var qOutput = []
+
+/**
+ * Parse frontmatter content, splitting into properties and content
+ */
+function parseFrontmatter(content) {
+  var r = /^(-{3}(?:\n|\r)([\w\W]+?)(?:\n|\r)-{3})?([\w\W]*)*/g.exec(content)
+
+  return {
+    meta: jsyaml.load(r[2]),
+    markdown: r[3]
+  }
+}
 
 for (var question of questions) {
   if (question.substr(-2) === 'md' && question !== 'example.md' && question !== 'template.md') {
     var file = fs.readFileSync(path.join(__dirname, '../questions', question), 'utf8')
 
-    var author = /author: (.+)\n/g.exec(file)[1]
-    if (contributors.indexOf(author) == -1) contributors.push(author)
-
+    var parsed = parseFrontmatter(file)
     count += 1
     var id = parseInt(question.substring(0, question.lastIndexOf('.')))
+
+    var author = parsed.meta.author
+    if (contributors.indexOf(author) == -1) contributors.push(author)
+
+    for (var i in parsed.meta.tags) {
+      if (parsed.meta.tags[i] in tags) {
+        tags[parsed.meta.tags[i]].push(id)
+      } else {
+        tags[parsed.meta.tags[i]] = [id]
+      }
+    }
 
     var questionMarkdown = /# Zadání((.|\n)*)(# Řešení|$)/g.exec(file)[1]
 
@@ -33,7 +56,7 @@ var meta = {
   built: new Date().toISOString(),
   c: count,
   contribs: contributors,
-  tags: 'tbp',
+  tags: tags,
   q: qOutput
 }
 
