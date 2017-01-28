@@ -31,7 +31,7 @@ for (var question of questions) {
 var meta = {
   built: new Date().toISOString(),
   c: count,
-  contribts: contributors,
+  contribs: contributors,
   tags: 'tbp',
   q: qOutput
 }

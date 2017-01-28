@@ -20,12 +20,15 @@ $(document).ready(function () {
     appState.questionsMeta = meta
     appState.totalQuestions = meta.c
 
-    if (appState.page == 'catalog') {
-      displayCatalog()
-    } else {
-      loadQuestion(appState.displayedQuestionId, function(meta, content) {
-        displayQuestion(meta, content)
-      })
+    switch (appState.page) {
+      case 'catalog':
+        return displayCatalog()
+      case 'contributors':
+        return displayContributors()
+      default:
+        return loadQuestion(appState.displayedQuestionId, function(meta, content) {
+          displayQuestion(meta, content)
+        })
     }
   })
 })
@@ -268,4 +271,14 @@ function displayCatalog() {
         </div>
     </div>`)
   }
+}
+
+/**
+ * Displays a list of contributors
+ */
+function displayContributors() {
+ for (var i in appState.questionsMeta.contribs) {
+   var author = appState.questionsMeta.contribs[i]
+   $('#q-contributors').append(`<li>${author}</li>`)
+ }
 }
