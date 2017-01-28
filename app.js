@@ -19,9 +19,13 @@ $(document).ready(function () {
     appState.questionsMeta = meta
     appState.totalQuestions = meta.c
 
-    loadQuestion(appState.displayedQuestionId, function(meta, content) {
-      displayQuestion(meta, content)
-    })
+    if (isCatalog) {
+      displayCatalog()
+    } else {
+      loadQuestion(appState.displayedQuestionId, function(meta, content) {
+        displayQuestion(meta, content)
+      })
+    }
   })
 })
 
@@ -247,5 +251,20 @@ function parseFrontmatter(content) {
   return {
     meta: jsyaml.load(r[2]),
     markdown: r[3]
+  }
+}
+
+/**
+ * Displays a catalog
+ */
+function displayCatalog() {
+  for (var i in appState.questionsMeta.q) {
+    var question = appState.questionsMeta.q[i]
+
+    $('#q-catalog').append(`<div>
+        <div class="uk-card uk-card-default uk-card-small uk-card-hover uk-card-body">
+            <p><a href="index.html#${i+1}">${question.peek}</a></p>
+        </div>
+    </div>`)
   }
 }
