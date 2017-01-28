@@ -120,12 +120,16 @@ function displayQuestionMeta(meta, total) {
     $('#q-title').append(`<span class="uk-label">Zobrazeno</span>`)
   }
 
-  var srcUrlParts = meta.source.split('/')
-  var srcUrlDomain = srcUrlParts[2].startsWith('www') ? srcUrlParts[2].substring(4) : srcUrlParts[2]
-  var srcShortUrl = `${srcUrlDomain}/.../${srcUrlParts[srcUrlParts.length - 1]}`
+  var sauce = ''
+  if (meta.source) {
+    var srcUrlParts = meta.source.split('/')
+    var srcUrlDomain = srcUrlParts[2].startsWith('www') ? srcUrlParts[2].substring(4) : srcUrlParts[2]
+    var srcShortUrl = `${srcUrlDomain}/.../${srcUrlParts[srcUrlParts.length - 1]}`
 
-  $('#q-meta').html(`${meta.id+1}/${total} | <span id="q-author">Přidal(a) ${meta.author}</a></span> |
-                    <a href="${meta.source}">${srcShortUrl}</a>`)
+    var sauce = `| <a href="${meta.source}">${srcShortUrl}</a>`
+  }
+
+  $('#q-meta').html(`${meta.id+1}/${total} | <span id="q-author">Přidal(a) ${meta.author}</a> ${sauce}</span>`)
 
   if (meta.editors) {
     if (Array.isArray(meta.editors)) {
