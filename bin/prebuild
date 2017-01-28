@@ -18,7 +18,7 @@ for (var question of questions) {
     count += 1
     var id = parseInt(question.substring(0, question.lastIndexOf('.')))
 
-    var questionMarkdown = /# Zadání((.|\n)*)# Řešení/g.exec(file)[1]
+    var questionMarkdown = /# Zadání((.|\n)*)(# Řešení|$)/g.exec(file)[1]
 
     qOutput[id] = {
       file: question,
