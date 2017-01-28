@@ -2,21 +2,10 @@
 <html>
 <head>
   <title>maraPST</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.2/css/uikit.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.2/js/uikit.min.js"></script>
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-51630782-4', 'auto');
-    ga('send', 'pageview');
-
-  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="lib/uikit-3/css/uikit.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav class="uk-navbar-container" uk-navbar>
@@ -24,33 +13,75 @@
       <a class="uk-navbar-item uk-logo" href="index.html">marapst</a>
       <ul class="uk-navbar-nav">
         <li><a href="index.html">Procvičovat</a></li>
+        <li><a href="catalog.html">Katalog</a></li>
         <li><a href="butwhy.html">Proč</a></li>
+        <li><a href="contributors.html">Přispěvatelé</a></li>
       </ul>
     </div>
   </nav>
   <div class="uk-container uk-container-small uk-margin">
-    <img src="1M9fmo1WAFVK0.gif" width="360" class="uk-float-right uk-padding">
     <h1>Proč?</h1>
-    <p>Zadání se poslední dobou recyklujou a poslední zadání umístěná na fit-wiki se neskládají z ničeho jiného, než jen z méně kvalitních opisů opakujících se příkladů, které lze dohledat ve starších zkouškách na FW. A jak jedno takové individuum řeklo na fejsbuku:</p>
+
+    <img src="1M9fmo1WAFVK0.gif" width="360" class="uk-float-right uk-padding">
+    <p>
+      Zadání se poslední dobou recyklujou a poslední zadání umístěná na fit-wiki
+      se neskládají z ničeho jiného, než jen z méně kvalitních opisů opakujících
+      se příkladů, které lze dohledat ve starších zkouškách na FW. A jak jedno
+      takové individuum řeklo na fejsbuku:
+    </p>
     <blockquote cite="#">
-      <p class="uk-margin-small-bottom">co som pozeral fit-wiki tak je to dobry marast.</p>
+      <p class="uk-margin-small-bottom">
+        co som pozeral fit-wiki tak je to dobry marast.
+      </p>
       <footer>Peter Bočan</footer>
     </blockquote>
-    <p>No... Tak přesně proto. Navíc potřebuju na něčem prokrastinovat a ubrat si něčím čas určený k učení se na opravný termín zkoušky, přece. (¬_¬)</p>
+    <p>
+      No... Tak přesně proto. Navíc potřebuju na něčem prokrastinovat a ztrácet
+      čas určený k učení se na opravný termín zkoušky, přece. (¬_¬)
+    </p>
     <h2>V čem to je jiný, než otevřít si příklady z fitwiki?</h2>
-    <p>Snažím se o to, aby tohle byla kolekce kvalitních (kompletních) zadání příkladů ze zkoušek na jednom přehledným místě. Neúplná nebo chybná zadání by se tady objevit neměla. Zároveň by ke každému příkladu mělo být co nejpodrobnější řešení a postup (to ale nezaručuju už vůbec). A navíc si lze označit příklady, které už umíš spočítat a vidíš i které sis otevřel.</p>
+    <p>
+      Snažím se o to, aby tohle byla kolekce kvalitních (kompletních) zadání
+      příkladů ze zkoušek na jednom přehledným místě. Neúplná nebo chybná
+      zadání by se tady objevit neměla. Zároveň by ke každému příkladu mělo
+      být co nejpodrobnější řešení a postup (to ale nezaručuju už vůbec).
+      A navíc si lze označit příklady, které už umíš spočítat a vidíš i
+      které sis otevřel. A navíc jsou některé z příkladů
+      <strong>ověřeny cvičícím předmětu</strong>! Takže epickej zdroj příkladů
+      i s postupem, které nemají pochybnosti.
+    </p>
     <h2>BI-PST už je na <a href="http://marast.fit.cvut.cz">Marastu</a>.</h2>
-    <p>¯\_(ツ)_/¯ noa, třeba tady bude něco, co tam není. Tohle je koncentrát z fit-wiki. V době psaní appky má BI-PST prázdnou cvičebnici.</p>
-    <h2>Jak tam přidám další?</h2>
-    <p><a href="https://github.com/mmajko/marapst/blob/master/CONTRIBUTING.md">Takhle</a>.</p>
-    <h2>Máš to zabugovaný.</h2>
-    <p>Sry, ale zero fucks given. Můžeš to opravit, dole je link na repo. Nebo to můžeš zkusit alespoň nahlásit, ale asi s tím nikdo nic neudělá.</p>
-    <h2>Haha, tys nedal zkoušku?</h2>
-    <p>Drž hubu, nebo ji nedáš taky.</p>
+    <p>
+      ¯\_(ツ)_/¯ noa, třeba tady bude něco, co tam není. Tohle je koncentrát z
+      fit-wiki, reálně ze zkoušek. V době psaní appky má BI-PST prázdnou
+      cvičebnici.
+    </p>
+    <h2>Jak tam přidám další otázky?</h2>
+    <p>
+      <a href="https://github.com/mmajko/marapst/blob/master/README.md">Takhle</a>. Dík.
+    </p>
     <hr>
     <a href="#" uk-totop uk-scroll class="uk-align-right"></a>
-    <div class="uk-text-meta">Marián Hlaváč, 2017</div>
-    <div class="uk-text-meta"><a href="https://github.com/mmajko/marapst">github</a></div>
+    <div class="uk-text-small"><strong>marapst v1.1.0</strong> Marián Hlaváč, 2017</div>
+    <div class="uk-text-small"><a href="https://github.com/mmajko/marapst">github</a>, <a href="contributors.html">question contributors</a></div>
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/uikit-3/js/uikit.min.js"></script>
+    <script type="text/javascript" src="lib/markjax-1.1.2/dist/markjax.min.js"></script>
+    <script type="text/javascript" src="lib/js-yaml-3.7.0/dist/js-yaml.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-51630782-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script>
+      appState.page = 'why'
+    </script>
   </div>
 </body>
 </html>
