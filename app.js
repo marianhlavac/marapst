@@ -58,7 +58,10 @@ function loadQuestionsMeta(callback) {
   $.getJSON('questions/meta.json').done(function(meta) {
     callback(meta)
   }).fail(function(err) {
-    alert('lel:' + err) // TODO: fix this
+    $('#q-meta').html(`<div uk-alert><a class="uk-alert-close" uk-close></a>
+      <h3>Questions meta chybí</h3>
+      <p>Chybí soubor questions/meta.json, určitě jste to zbuildili?</p>
+    </div>`)
   })
 }
 
@@ -74,7 +77,10 @@ function loadQuestion(id, callback) {
 
     callback(parsedQuestion.meta, parsedQuestion.content)
   }).fail(function(err) {
-    alert('kek:' + err) // TODO: fix this
+    $('#q-meta').html(`<div uk-alert><a class="uk-alert-close" uk-close></a>
+      <h3>Otázka nenalezena</h3>
+      <p>Otázka s tímto ID neexistuje. Kde se stala chyba? :O</p>
+    </div>`)
   })
 }
 
