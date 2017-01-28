@@ -55,8 +55,8 @@ $("#known-toggle").on('click', function() {
  * Loads global questions meta file meta.json
  */
 function loadQuestionsMeta(callback) {
-  $.get('questions/meta.json').done(function(meta) {
-    callback(JSON.parse(meta))
+  $.getJSON('questions/meta.json').done(function(meta) {
+    callback(meta)
   }).fail(function(err) {
     alert('lel:' + err) // TODO: fix this
   })
