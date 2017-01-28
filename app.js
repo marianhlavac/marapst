@@ -86,7 +86,9 @@ function displayQuestion(meta, content) {
   displayQuestionMeta(parsedQuestion.meta, appState.totalQuestions)
 
   // Put the markdown content in there
-  markjax(parsedQuestion.markdown, document.getElementById('q-content'))
+  markjax(parsedQuestion.markdown, document.getElementById('q-content'), {
+    breaks: false
+  })
 
   // Save this question as displayed
   appState.userData.lastDisplayed = meta.id
