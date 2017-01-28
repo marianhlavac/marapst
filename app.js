@@ -230,6 +230,8 @@ function updateTags(tags) {
       var tag = i
 
       $('#tags').append(`<a href="#${id+1}" class="uk-badge">${tag}</a> `)
+    } else {
+      $('#tags').append(`<a class="uk-badge uk-badge-disabled">${i}</a> `)
     }
   }
 }

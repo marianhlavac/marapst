@@ -60,6 +60,17 @@ a.uk-button:not([href]) {
   content: '\2713';
 }
 
+.uk-badge-disabled {
+  background: transparent;
+  border: 1px solid #ccc;
+  margin: -1px;
+  color: #999;
+}
+
+.uk-badge-disabled:hover {
+  color: #999;
+}
+
 .question-content {
   margin: 2em 0;
 }
