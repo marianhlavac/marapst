@@ -1,3 +1,4 @@
+/* App global state */
 var appState = {
   displayedQuestionId: 0,
   totalQuestions: 0,
@@ -42,6 +43,9 @@ $("#known-toggle").on('click', function() {
 
 // ---
 
+/**
+ * Loads global questions meta file meta.json
+ */
 function loadQuestionsMeta(callback) {
   $.get('questions/meta.json').done(function(meta) {
     callback(JSON.parse(meta))
@@ -50,6 +54,10 @@ function loadQuestionsMeta(callback) {
   })
 }
 
+/**
+ * Loads single question, returns parsed frontmatter props
+ * and markdown content.
+ */
 function loadQuestion(id, callback) {
   $.get('questions/' + id + '.md').done(function(content) {
     // Parse the frontmatter meta from the content
@@ -62,6 +70,9 @@ function loadQuestion(id, callback) {
   })
 }
 
+/**
+ * Displays a question using markjax, rendering directly into DOM.
+ */
 function displayQuestion(meta, content) {
   // Display the meta section
   displayQuestionMeta(parsedQuestion.meta, appState.totalQuestions)
@@ -82,10 +93,14 @@ function displayQuestion(meta, content) {
   updateButtons(meta.id, appState.totalQuestions, isKnown)
   updateProgressBars(displayedCount, knownCount, appState.totalQuestions)
 
+  // Update browser data
   window.location.hash = meta.id + 1
   synchronizeUserData(localStorage, appState.userData)
 }
 
+/**
+ * Displays question meta part
+ */
 function displayQuestionMeta(meta, total) {
   $('#q-title').text(`Příklad ${meta.id+1}`)
   $('#q-tags').html('')
@@ -121,6 +136,9 @@ function displayQuestionMeta(meta, total) {
   }
 }
 
+/**
+ * Toggles the "known" state of the question
+ */
 function toggleKnownQuestion(id) {
   var isKnown = appState.userData.known.indexOf(id) !== -1
 
@@ -140,6 +158,9 @@ function toggleKnownQuestion(id) {
   synchronizeUserData(localStorage, appState.userData)
 }
 
+/**
+ * Updates the UI buttons
+ */
 function updateButtons(id, total, isKnown) {
   if (id > 0) {
     $('.q-button-prev').attr('href', '#' + id)
@@ -162,6 +183,9 @@ function updateButtons(id, total, isKnown) {
   $('.question-known').prop('checked', isKnown)
 }
 
+/**
+ * Updates the UI progress bars
+ */
 function updateProgressBars(displayed, known, total) {
   $('.total-questions').text(total)
 
@@ -172,11 +196,17 @@ function updateProgressBars(displayed, known, total) {
   $('#know-questions').text(known)
 }
 
+/**
+ * Resets the user data, will refresh the page
+ */
 function resetUserData(storage) {
   storage.isSet = ''
   location.reload()
 }
 
+/**
+ * Reads user data from specified storage
+ */
 function readUserData(storage) {
   // Init local storage if it's app first run
   if (!storage.isSet || storage.version != '110') {
@@ -194,6 +224,9 @@ function readUserData(storage) {
   }
 }
 
+/**
+ * Synchronizes user data to the specified storage
+ */
 function synchronizeUserData(storage, userData) {
   storage.isSet = true
   storage.displayed = JSON.stringify(userData.displayed)
@@ -201,6 +234,9 @@ function synchronizeUserData(storage, userData) {
   storage.lastDisplayed = userData.lastDisplayed
 }
 
+/**
+ * Parse frontmatter content, splitting into properties and content
+ */
 function parseFrontmatter(content) {
   var r = /^(-{3}(?:\n|\r)([\w\W]+?)(?:\n|\r)-{3})?([\w\W]*)*/g.exec(content)
 
