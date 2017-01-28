@@ -4,13 +4,38 @@ var path = require('path')
 
 var questions = fs.readdirSync(path.join(__dirname, '../questions'))
 
+var count = 0
+var contributors = []
+var qOutput = []
+
+for (var question of questions) {
+  if (question.substr(-2) === 'md' && question !== 'example.md' && question !== 'template.md') {
+    var file = fs.readFileSync(path.join(__dirname, '../questions', question), 'utf8')
+
+    var author = /author: (.+)\n/g.exec(file)[1]
+    if (contributors.indexOf(author) == -1) contributors.push(author)
+
+    count += 1
+
+    var questionMarkdown = /# Zadání((.|\n)*)# Řešení/g.exec(file)[1]
+
+    qOutput.push({
+      file: question,
+      peek: questionMarkdown.substring(0, 32)
+    })
+
+    console.log('Meta for ' + question + ' saved.')
+  }
+}
+
 var meta = {
   built: new Date().toISOString(),
-  c: questions.length - 1,
-  contribts: 'tbp',
-  tags: 'tbp'
+  c: count,
+  contribts: contributors,
+  tags: 'tbp',
+  q: qOutput
 }
 
 fs.writeFile(path.join(__dirname, '../questions/meta.json'), JSON.stringify(meta), function () {
-  console.log(`Prebuilded. ${meta.c} questions counted.`)
+  console.log(`Prebuilded. ${meta.c} questions meta saved.`)
 })
