@@ -4,7 +4,9 @@
 
 ## About
 
-Marapst is dunno, TODO.
+Marapst is an electonic excercise book inspired by [Marast](http://marast.fit.cvut.cz) for BI-PST subject at [FIT CTU](http://fit.cvut.cz).
+
+![screenshot](http://i.imgur.com/u7W0Ru4.png)
 
 ## How to contribute
 
